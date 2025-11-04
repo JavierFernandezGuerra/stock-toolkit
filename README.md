@@ -4,17 +4,12 @@ Stock Toolkit es un conjunto de herramientas plug-and-play para la obtención, n
 
 ## Características principales
 
-- **Extractor multi-fuente**: capa orquestadora que descarga datos históricos de acciones, índices y otras series temporales financieras desde proveedores configurables (Yahoo Finance, Alpha Vantage y proveedores personalizados).
+- **Extractor multi-fuente**: capa orquestadora que descarga datos históricos de acciones, índices y otras series temporales financieras desde proveedores configurables (Yahoo Finance, Alpha Vantage y proveedores personalizados). Soporta descargas concurrentes configurables.
 - **Modelos tipados**: dataclasses `PriceSeries` y `Portfolio` que estandarizan la estructura de los datos, aplican estadísticos básicos automáticos y exponen métodos para análisis más profundos.
-- **Simulación Monte Carlo**: generación de escenarios de evolución futura tanto a nivel de valor individual como de cartera completa, con parámetros ajustables.
+- **Simulación Monte Carlo**: generación de escenarios de evolución futura tanto a nivel de valor individual como de cartera completa, con parámetros ajustables. Incluye exportación de paneles gráficos a archivo.
 - **Preprocesado y validación**: utilidades para limpiar, alinear y enriquecer series temporales antes de su análisis o almacenamiento.
 - **Visualizaciones**: informes listos para usuario con gráficos clave y reportes en Markdown.
-- **CLI con Typer**: interfaz de línea de comandos para ejecutar flujos típicos sin tocar código.
-
-Novedades recientes:
-- Opción para configurar concurrencia de descargas (`--max-workers` o `STOCK_TOOLKIT_MAX_WORKERS`).
-- Nuevos comandos CLI: `fundamentals` y `macro` con guardado a CSV/Parquet.
-- Monte Carlo exporta panel de gráficos a fichero y permite `--no-show`.
+- **CLI con Typer**: interfaz de línea de comandos para ejecutar flujos típicos sin tocar código. Incluye comandos para obtención de fundamentales y datos macroeconómicos con guardado a CSV/Parquet.
 
 ## Estructura del proyecto
 
