@@ -74,6 +74,10 @@ stock-toolkit/
     └── test_montecarlo.py
 ```
 
+## Diagrama del proyecto
+
+![Diagrama del proyecto](docs/architecture_diagram.png)
+
 ## Requisitos
 
 - Python 3.10 o superior.
