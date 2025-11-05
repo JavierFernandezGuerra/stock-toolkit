@@ -195,20 +195,6 @@ Políticas relevantes de datos y cartera:
 - El diagrama de arquitectura en `docs/architecture_diagram.png` se crea con FossFLOW y la imagen se actualiza manualmente en este repositorio.
 - FossFLOW es una potente PWA open‑source para crear diagramas isométricos. Construida con React y la librería Isoflow (bifurcada y publicada en NPM como `fossflow`), funciona completamente en el navegador con soporte offline.
 
-## Roadmap
-
-- Integración con bases de datos (DuckDB, SQLite) para almacenamiento incremental.
-- Pipelines automatizados para backtesting.
-- Exportación a dashboards interactivos (Streamlit).
-- Validación de estrategias mediante hipótesis estadísticas.
-
-## Contribución
-
-1. Haz un fork del repositorio.
-2. Crea una rama descriptiva.
-3. Añade tests y ejecuta `pytest` y `ruff` antes de proponer cambios.
-4. Envía un Pull Request describiendo la motivación y el impacto.
-
 ## Licencia
 
 Este proyecto está distribuido bajo la licencia MIT. Consulta el fichero `LICENSE` para más detalles.
