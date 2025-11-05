@@ -68,6 +68,9 @@ stock-toolkit/
     ├── test_portfolio.py
     └── test_montecarlo.py
 ```
+## Diagrama del proyecto
+
+![Diagrama del proyecto](docs/architecture_diagram.png)
 
 ## Requisitos
 
