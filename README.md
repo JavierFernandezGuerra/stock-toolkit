@@ -11,11 +11,6 @@ Stock Toolkit es un conjunto de herramientas plug-and-play para la obtención, n
 - **Visualizaciones**: informes listos para usuario con gráficos clave y reportes en Markdown.
 - **CLI con Typer**: interfaz de línea de comandos para ejecutar flujos típicos sin tocar código.
 
-Novedades recientes:
-- Opción para configurar concurrencia de descargas (`--max-workers` o `STOCK_TOOLKIT_MAX_WORKERS`).
-- Nuevos comandos CLI: `fundamentals` y `macro` con guardado a CSV/Parquet.
-- Monte Carlo exporta panel de gráficos a fichero y permite `--no-show`.
-
 ## Estructura del proyecto
 
 ```text
