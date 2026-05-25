@@ -1,17 +1,21 @@
 # Stock Toolkit
 
-Stock Toolkit es un conjunto de herramientas plug-and-play para la obtención, normalización, análisis y visualización de datos bursátiles. El objetivo del proyecto es demostrar una arquitectura limpia y escalable que facilite la incorporación de nuevas fuentes de datos, modelos analíticos y flujos de trabajo reproducibles.
+![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue)
+![Typer CLI](https://img.shields.io/badge/CLI-Typer-orange)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-## Características principales
+Stock Toolkit is a plug-and-play set of utilities for **equity data extraction, normalisation, analysis and visualisation**. The goal is to showcase a clean, scalable architecture that makes it easy to plug in new data providers, analytical models and reproducible workflows.
 
-- **Extractor multi-fuente**: capa orquestadora que descarga datos históricos de acciones, índices y otras series temporales financieras desde proveedores configurables (Yahoo Finance, Alpha Vantage y proveedores personalizados).
-- **Modelos tipados**: dataclasses `PriceSeries` y `Portfolio` que estandarizan la estructura de los datos, aplican estadísticos básicos automáticos y exponen métodos para análisis más profundos.
-- **Simulación Monte Carlo**: generación de escenarios de evolución futura tanto a nivel de valor individual como de cartera completa, con parámetros ajustables.
-- **Preprocesado y validación**: utilidades para limpiar, alinear y enriquecer series temporales antes de su análisis o almacenamiento.
-- **Visualizaciones**: informes listos para usuario con gráficos clave y reportes en Markdown.
-- **CLI con Typer**: interfaz de línea de comandos para ejecutar flujos típicos sin tocar código.
+## Key features
 
-## Estructura del proyecto
+- **Multi-provider extractor**: orchestration layer that downloads historical price series for stocks, indices and other financial time series from configurable providers (Yahoo Finance, Alpha Vantage and custom providers).
+- **Typed data models**: `PriceSeries` and `Portfolio` dataclasses that standardise data structure, apply basic statistics automatically and expose methods for deeper analysis.
+- **Monte Carlo simulation**: forward-looking scenario generation at both single-asset and full-portfolio level, with tunable parameters.
+- **Preprocessing and validation**: utilities to clean, align and enrich time series prior to analysis or storage.
+- **Visualisations**: user-ready reports with key charts and Markdown summaries.
+- **Typer-based CLI**: command-line interface for running typical workflows without touching code.
+
+## Project structure
 
 ```text
 stock-toolkit/
@@ -68,132 +72,131 @@ stock-toolkit/
     ├── test_portfolio.py
     └── test_montecarlo.py
 ```
-## Diagrama del proyecto
 
-![Diagrama del proyecto](docs/architecture_diagram.png)
+## Architecture diagram
 
-## Requisitos
+![Architecture diagram](docs/architecture_diagram.png)
 
-- Python 3.10 o superior.
-- Claves de API opcionales (`ALPHAVANTAGE_API_KEY`) para proveedores que lo requieran.
+## Requirements
 
-Instalación rápida:
+- Python 3.10 or higher.
+- Optional API keys (`ALPHAVANTAGE_API_KEY`) for providers that require them.
+
+Quick install:
 
 ```bash
 python -m venv .venv
-. .venv/bin/activate  # En Windows: .venv\Scripts\activate
+. .venv/bin/activate     # Windows: .venv\Scripts\activate
 pip install -e .
-# (opcional) extras de visualización con ajuste normal
+# (optional) visualisation extras
 pip install -e .[viz]
 ```
 
-Para ejecutar la CLI:
+Launch the CLI:
 
 ```bash
 stock-toolkit --help
 ```
 
-## Flujo de trabajo recomendado
+## Recommended workflow
 
-1. **Configurar proveedores** mediante variables de entorno o fichero `.env`.
-2. **Descargar series** con `stock-toolkit fetch --provider yahoo --symbols AAPL,MSFT --start 2020-01-01 --end 2024-12-31`.
-3. **Guardar o cargar** datos estandarizados con `loader.py`.
-4. **Preprocesar** (limpieza, imputación, alineación) antes de análisis avanzados.
-5. **Analizar** estadísticas descriptivas y riesgos con los métodos de `PriceSeries` y `Portfolio`.
-6. **Simular** escenarios futuros con `stock-toolkit montecarlo ...` o `Portfolio.run_monte_carlo()`.
-7. **Generar informes** en Markdown con `stock-toolkit report ...` y guardar gráficos con `--save-panel`.
+1. **Configure providers** via environment variables or a `.env` file.
+2. **Download series** with `stock-toolkit fetch --provider yahoo --symbols AAPL,MSFT --start 2020-01-01 --end 2024-12-31`.
+3. **Persist or reload** standardised data through `loader.py`.
+4. **Preprocess** (cleaning, imputation, alignment) before any advanced analysis.
+5. **Analyse** descriptive statistics and risk via the methods of `PriceSeries` and `Portfolio`.
+6. **Simulate** forward scenarios with `stock-toolkit montecarlo ...` or `Portfolio.run_monte_carlo()`.
+7. **Generate reports** in Markdown with `stock-toolkit report ...` and save charts via `--save-panel`.
 
-## Configuración
+## Configuration
 
-El módulo `config.py` utiliza `pydantic-settings` para leer variables de entorno, ficheros `.env` y valores por defecto. Puedes definir la ruta de almacenamiento de datos (`STOCK_TOOLKIT_DATA_DIR`) y claves API:
+`config.py` uses `pydantic-settings` to read environment variables, `.env` files and defaults. You can set the data storage path (`STOCK_TOOLKIT_DATA_DIR`) and API keys:
 
 ```bash
-export ALPHAVANTAGE_API_KEY="mi-clave"
-export STOCK_TOOLKIT_DATA_DIR="/ruta/a/data"
+export ALPHAVANTAGE_API_KEY="my-key"
+export STOCK_TOOLKIT_DATA_DIR="/path/to/data"
 export STOCK_TOOLKIT_MAX_WORKERS=8
 ```
 
-Configuración rápida con `.env`:
-
-Ejemplo de contenido para tu `.env` (créalo en la raíz del proyecto):
+Quick `.env` setup — place at the project root:
 
 ```dotenv
-# Alpha Vantage API key (opcional, requerida para el proveedor alphavantage)
+# Alpha Vantage API key (optional, required by the alphavantage provider)
 ALPHAVANTAGE_API_KEY=
 
-# Carpeta base de datos (opcional)
+# Base data folder (optional)
 STOCK_TOOLKIT_DATA_DIR=./data
 
-# Proveedor por defecto (opcional: yahoo | alphavantage | mock)
+# Default provider (optional: yahoo | alphavantage | mock)
 STOCK_TOOLKIT_DEFAULT_PROVIDER=yahoo
 ```
 
-Variables reconocidas:
+Recognised variables:
 
-- `ALPHAVANTAGE_API_KEY`: clave para Alpha Vantage.
-- `STOCK_TOOLKIT_DATA_DIR`: carpeta base para datos.
-- `STOCK_TOOLKIT_MAX_WORKERS`: límite de hilos para descargas concurrentes.
+- `ALPHAVANTAGE_API_KEY` — Alpha Vantage API key.
+- `STOCK_TOOLKIT_DATA_DIR` — base data folder.
+- `STOCK_TOOLKIT_MAX_WORKERS` — concurrent-download thread cap.
 
-## Contrato de entrada de datos (PriceSeries)
+## Data input contract (`PriceSeries`)
 
-Para garantizar coherencia entre proveedores y fuentes externas, el modelo `PriceSeries` exige:
-- Índice: `DatetimeIndex` monotónico creciente, sin duplicados.
-- Columnas requeridas: `open`, `high`, `low`, `close`, `adj_close`, `volume` (numéricas; precios no negativos).
-- Las funciones de preprocesado (`validate_price_series`, `align_series`, `fill_missing`, `resample_series`) ayudan a adaptar datos externos.
+To guarantee consistency across providers and external sources, `PriceSeries` enforces:
 
-Si deseas crear una `PriceSeries` manualmente:
+- Index: monotonically increasing `DatetimeIndex`, no duplicates.
+- Required columns: `open`, `high`, `low`, `close`, `adj_close`, `volume` (numeric; non-negative prices).
+- Preprocessing helpers (`validate_price_series`, `align_series`, `fill_missing`, `resample_series`) make adapting external data straightforward.
+
+To build a `PriceSeries` by hand:
 
 ```python
 from stock_toolkit.models.price_series import PriceSeries
 series = PriceSeries.from_dataframe("TICKER", df)
 ```
 
-## CLI ampliada
+## CLI examples
 
-Descarga de series (acciones o índices como `^GSPC`, `^IXIC`):
+Download stock or index series (e.g. `^GSPC`, `^IXIC`):
 
 ```bash
 stock-toolkit fetch --provider yahoo --symbols AAPL,^GSPC --start 2020-01-01 --end 2024-12-31 \
   --max-workers 8 --output ./data/processed/prices.parquet
 ```
 
-Reporte Markdown de cartera (pesos igualados si no se especifican):
+Portfolio Markdown report (equal weights if not specified):
 
 ```bash
 stock-toolkit report --symbols AAPL,MSFT --provider yahoo --markdown-output ./data/reports/portfolio.md
 ```
 
-Monte Carlo con guardado de panel y sin mostrar ventana gráfica:
+Monte Carlo with panel export and no GUI window:
 
 ```bash
 stock-toolkit montecarlo --symbols AAPL,MSFT --provider yahoo --periods 252 --simulations 2000 \
   --save-panel ./data/reports/montecarlo_panel.png --no-show
 ```
 
-Fundamentales (snapshot) y macro (serie temporal):
+Fundamentals snapshot and macro time series:
 
 ```bash
 stock-toolkit fundamentals --symbol AAPL --provider alphavantage --output ./data/processed/aapl_funda.parquet
 stock-toolkit macro --indicator CPI --provider alphavantage --output ./data/processed/cpi.parquet
 ```
 
-## Extensibilidad
+## Extensibility
 
-- Añade un nuevo proveedor implementando la interfaz `BaseProvider` y registrándolo en tiempo de ejecución con `DataExtractor.register_provider(...)` o extendiendo la fábrica `data.providers.create_default_providers(...)`.
-- Los modelos son dataclasses que facilitan la validación y los cálculos derivados.
-- Los módulos de análisis y visualización están desacoplados para permitir sustituir librerías (por ejemplo Plotly o Altair).
+- Add a new provider by implementing the `BaseProvider` interface and registering it at runtime via `DataExtractor.register_provider(...)`, or by extending the factory `data.providers.create_default_providers(...)`.
+- Models are dataclasses, which keep validation and derived computations close to the data.
+- Analysis and visualisation modules are decoupled, making it easy to swap libraries (e.g. Plotly or Altair).
 
-Políticas relevantes de datos y cartera:
+Data and portfolio policies worth noting:
 
-- Retornos: Monte Carlo utiliza retornos logarítmicos. Las métricas de cartera permiten elegir tipo (`return_type="simple"|"log"`) y por defecto usan retornos logarítmicos.
-- Frecuencia: cada símbolo debe ser único en la cartera. Si necesitas la misma serie a otra frecuencia, resamplea antes de añadirla.
+- **Returns** — Monte Carlo uses log-returns. Portfolio metrics let you choose the return type (`return_type="simple"|"log"`) and default to log-returns.
+- **Frequency** — every symbol must be unique within a portfolio. If you need the same series at a different frequency, resample it before adding it.
 
-## Documentación y diagramas
+## Documentation and diagrams
 
-- El diagrama de arquitectura en `docs/architecture_diagram.png` se crea con FossFLOW y la imagen se actualiza manualmente en este repositorio.
-- FossFLOW es una potente PWA open‑source para crear diagramas isométricos. Construida con React y la librería Isoflow (bifurcada y publicada en NPM como `fossflow`), funciona completamente en el navegador con soporte offline.
+- The architecture diagram in `docs/architecture_diagram.png` is generated with FossFLOW; the image is updated manually in this repository.
+- FossFLOW is an open-source PWA for isometric diagrams. Built on top of React and the Isoflow library (forked and published on NPM as `fossflow`), it runs fully in the browser with offline support.
 
-## Licencia
+## License
 
-Este proyecto está distribuido bajo la licencia MIT. Consulta el fichero `LICENSE` para más detalles.
-
+This project is released under the MIT License. See `LICENSE` for details.
