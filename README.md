@@ -18,7 +18,7 @@ Stock Toolkit is a plug-and-play set of utilities for **equity data extraction, 
 ## Project structure
 
 ```text
-stock-toolkit/
+miax-stock-toolkit/
 ├── README.md
 ├── LICENSE
 ├── pyproject.toml
@@ -95,18 +95,18 @@ pip install -e .[viz]
 Launch the CLI:
 
 ```bash
-stock-toolkit --help
+miax-stock-toolkit --help
 ```
 
 ## Recommended workflow
 
 1. **Configure providers** via environment variables or a `.env` file.
-2. **Download series** with `stock-toolkit fetch --provider yahoo --symbols AAPL,MSFT --start 2020-01-01 --end 2024-12-31`.
+2. **Download series** with `miax-stock-toolkit fetch --provider yahoo --symbols AAPL,MSFT --start 2020-01-01 --end 2024-12-31`.
 3. **Persist or reload** standardised data through `loader.py`.
 4. **Preprocess** (cleaning, imputation, alignment) before any advanced analysis.
 5. **Analyse** descriptive statistics and risk via the methods of `PriceSeries` and `Portfolio`.
-6. **Simulate** forward scenarios with `stock-toolkit montecarlo ...` or `Portfolio.run_monte_carlo()`.
-7. **Generate reports** in Markdown with `stock-toolkit report ...` and save charts via `--save-panel`.
+6. **Simulate** forward scenarios with `miax-stock-toolkit montecarlo ...` or `Portfolio.run_monte_carlo()`.
+7. **Generate reports** in Markdown with `miax-stock-toolkit report ...` and save charts via `--save-panel`.
 
 ## Configuration
 
@@ -157,28 +157,28 @@ series = PriceSeries.from_dataframe("TICKER", df)
 Download stock or index series (e.g. `^GSPC`, `^IXIC`):
 
 ```bash
-stock-toolkit fetch --provider yahoo --symbols AAPL,^GSPC --start 2020-01-01 --end 2024-12-31 \
+miax-stock-toolkit fetch --provider yahoo --symbols AAPL,^GSPC --start 2020-01-01 --end 2024-12-31 \
   --max-workers 8 --output ./data/processed/prices.parquet
 ```
 
 Portfolio Markdown report (equal weights if not specified):
 
 ```bash
-stock-toolkit report --symbols AAPL,MSFT --provider yahoo --markdown-output ./data/reports/portfolio.md
+miax-stock-toolkit report --symbols AAPL,MSFT --provider yahoo --markdown-output ./data/reports/portfolio.md
 ```
 
 Monte Carlo with panel export and no GUI window:
 
 ```bash
-stock-toolkit montecarlo --symbols AAPL,MSFT --provider yahoo --periods 252 --simulations 2000 \
+miax-stock-toolkit montecarlo --symbols AAPL,MSFT --provider yahoo --periods 252 --simulations 2000 \
   --save-panel ./data/reports/montecarlo_panel.png --no-show
 ```
 
 Fundamentals snapshot and macro time series:
 
 ```bash
-stock-toolkit fundamentals --symbol AAPL --provider alphavantage --output ./data/processed/aapl_funda.parquet
-stock-toolkit macro --indicator CPI --provider alphavantage --output ./data/processed/cpi.parquet
+miax-stock-toolkit fundamentals --symbol AAPL --provider alphavantage --output ./data/processed/aapl_funda.parquet
+miax-stock-toolkit macro --indicator CPI --provider alphavantage --output ./data/processed/cpi.parquet
 ```
 
 ## Extensibility
